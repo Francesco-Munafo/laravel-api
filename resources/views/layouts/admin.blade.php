@@ -31,7 +31,7 @@
 
                 <div class="container-fluid px-3">
                     <a class="navbar-brand me-0 me-md text-white d-block d-md-inline me-sm-3"
-                        href="{{ route('admin.dashboard') }}">PortBoolio</a>
+                        href="http://localhost:5174/">PortBoolio</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
                         aria-label="Toggle navigation">
