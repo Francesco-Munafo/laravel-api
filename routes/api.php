@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProjectController;
@@ -24,3 +25,5 @@ Route::get('/projects', [ProjectController::class, 'projects']);
 Route::get('/types', [ProjectController::class, 'types']);
 Route::get('/technologies', [ProjectController::class, 'technologies']);
 Route::get('/project/{project:slug}', [ProjectController::class, 'show']);
+
+Route::post('/contacts', [ContactController::class, 'store']);
