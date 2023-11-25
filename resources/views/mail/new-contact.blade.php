@@ -1,14 +1,15 @@
 <x-mail::message>
     # New message
 
-    Hi, {{ $lead->name }}
+    From: {{ $lead->name }}
+    Email: {{ $lead->email }}
+    Phone: {{ $lead->phone }}
 
-    Thanks for contacting me! I will answer to you as soon as possible!
-    In the meantime you can check some projects from my website!
-    Have a wonderful day!
+    Message:
+
+
+    {{ $lead->message }}
 
 
 
-    Thanks,
-    {{ config('app.name') }}
 </x-mail::message>
