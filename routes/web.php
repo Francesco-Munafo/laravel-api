@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\TypeController;
+use App\Http\Controllers\Api\GitHubController;
 use App\Models\Technology;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::put('trash/{project}/restore', [ProjectController::class, 'restoreTrashed'])->name('restore');
     //Route::delete('trash/{project}/destroy', [ProjectController::class, 'destroy'])->name('destroy');
     Route::delete('trash/{project}/destroy', [ProjectController::class, 'forceDelete'])->name('forceDelete');
+
+    Route::get('fetch-repos', [GitHubController::class, 'fetchRepos'])->name('github.fetch');
 
 
     Route::resource('/types', TypeController::class)->parameters(['types' => 'type:slug']);
