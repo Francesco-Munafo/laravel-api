@@ -15,9 +15,11 @@ class GitHubController extends Controller
     public function fetchRepos()
     {
         $username = config('services.github.username');
-        $response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer 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')->get("https://api.github.com/users/$username/repos?sort=created&direction=asc&per_page=100");
+        $response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer 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')->get("https://api.github.com/users/$username/repos?sort=created&direction=asc&per_page=100");
+
         if ($response->successful()) {
             $repositories = $response->json();
+
 
 
 
@@ -36,25 +38,30 @@ class GitHubController extends Controller
                     ]
                 );
 
-                $languagesResponse = Http::withoutVerifying()->withHeader('Authorization', 'Bearer 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')->get($repository['languages_url']);
+                $languagesResponse = Http::withoutVerifying()->withHeader('Authorization', 'Bearer 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')->get($repository['languages_url']);
+                $languagesPercentage = [];
                 if ($languagesResponse->successful()) {
-                    $languages = array_keys($languagesResponse->json());
-                    //$languagesPercentage = array_values($languagesResponse->json()); //TODO GET PERCENTAGE
 
-                    $technologyIds = [];
+                    $languagesData = $languagesResponse->json();
 
-                    foreach ($languages as $language) {
-                        $technology = Technology::firstOrCreate(
+                    $totalSize = array_sum($languagesData);
+
+                    foreach ($languagesData as $language => $size) {
+                        $percentage = ($size / $totalSize) * 100;
+
+                        $technology = Technology::updateOrCreate(
                             ['name' => $language],
-                            ['slug' => Technology::generateSlug($language)]
+                            [
+                                'slug' => Technology::generateSlug($language),
+                            ]
                         );
-                        $technologyIds[] = $technology->id;
+                        $project->technologies()->sync([$technology->id => ['technology_percentage' => $percentage]]);
                     }
-                    $project->technologies()->sync($technologyIds);
                 }
-
-                //ensure to handle duplicates and updates appropriately
             }
+
+            //ensure to handle duplicates and updates appropriately
+
 
             return to_route('admin.projects.index')->with('success', 'Repositories fetched successfully!');
         }
