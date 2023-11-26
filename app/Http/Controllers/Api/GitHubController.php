@@ -15,7 +15,7 @@ class GitHubController extends Controller
     public function fetchRepos()
     {
         $username = config('services.github.username');
-        $response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer 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')->get("https://api.github.com/users/$username/repos?sort=created&direction=asc&per_page=100");
+        $response = Http::withoutVerifying()->withHeader('Authorization', 'Bearer ' .  env('GITHUB_AUTH_TOKEN'))->get("https://api.github.com/users/$username/repos?sort=created&direction=asc&per_page=100");
 
         if ($response->successful()) {
             $repositories = $response->json();
@@ -38,7 +38,7 @@ class GitHubController extends Controller
                     ]
                 );
 
-                $languagesResponse = Http::withoutVerifying()->withHeader('Authorization', 'Bearer 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')->get($repository['languages_url']);
+                $languagesResponse = Http::withoutVerifying()->withHeader('Authorization', 'Bearer ' .  env('GITHUB_AUTH_TOKEN'))->get($repository['languages_url']);
                 $languagesPercentage = [];
                 if ($languagesResponse->successful()) {
 
