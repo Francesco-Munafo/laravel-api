@@ -49,13 +49,13 @@ class GitHubController extends Controller
                     foreach ($languagesData as $language => $size) {
                         $percentage = ($size / $totalSize) * 100;
 
-                        $technology = Technology::updateOrCreate(
+                        $technology = Technology::firstOrCreate(
                             ['name' => $language],
                             [
                                 'slug' => Technology::generateSlug($language),
                             ]
                         );
-                        $project->technologies()->sync([$technology->id => ['technology_percentage' => $percentage]]);
+                        $project->technologies()->syncWithoutDetaching([$technology->id => ['technology_percentage' => $percentage]]);
                     }
                 }
             }

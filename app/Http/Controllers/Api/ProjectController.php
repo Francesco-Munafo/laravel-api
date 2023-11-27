@@ -15,7 +15,7 @@ class ProjectController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'projects' => Project::with(['type', 'technologies'])->orderByDesc('id')->paginate(5)
+            'projects' => Project::with(['type', 'technologies'])->orderByDesc('id')->paginate(6)
         ]);
     }
 

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('project_technology', function (Blueprint $table) {
-            $table->string('technology_percentage')->default(0);
+            $table->decimal('technology_percentage', 5, 2, true)->default(0);
         });
     }
 
