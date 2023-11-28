@@ -19,6 +19,6 @@ class DashboardController extends Controller
         $total_technologies = Technology::all()->count();
         $last_projects = Project::orderByDesc('id')->limit(3)->get();
 
-        return view('admin.dashboard', compact('total_projects', 'total_users', 'last_projects'));
+        return view('admin.dashboard', compact('total_projects', 'total_users', 'last_projects', 'total_technologies'));
     }
 }

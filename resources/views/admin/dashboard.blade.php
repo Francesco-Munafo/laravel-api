@@ -19,7 +19,7 @@
             <div class="col">
                 <div class="card p-3">
                     <h3>Technologies: </h3>
-                    <h3>{{ $total_projects }}</h3>
+                    <h3>{{ $total_technologies }}</h3>
                 </div>
             </div>
 
